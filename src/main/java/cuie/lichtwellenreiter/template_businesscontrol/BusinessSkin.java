@@ -1,4 +1,4 @@
-package cuie.project.template_businesscontrol;
+package cuie.lichtwellenreiter.template_businesscontrol;
 
 import java.util.Arrays;
 
