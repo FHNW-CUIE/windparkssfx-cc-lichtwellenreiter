@@ -2,7 +2,7 @@
 
 === Bearbeitet von
 
-* _Vorname Nachname_
+* _Florian Thiévent (lichtwellenreiter)_
 
 === Integriert in die OOP2-Projekte von
 
