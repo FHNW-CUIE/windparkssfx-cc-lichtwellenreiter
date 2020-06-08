@@ -4,10 +4,7 @@ import javafx.beans.property.*;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcType;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 
 
@@ -33,8 +30,9 @@ public class BarShape extends Group {
     private final int strokeWidth;
 
     private boolean visible;
+    private int level;
 
-    public BarShape(String label, double value, double total, Color color, int centerX, int centerY, int radius, int strokeWidth, boolean visible) {
+    public BarShape(String label, double value, double total, Color color, int centerX, int centerY, int radius, int strokeWidth, boolean visible, int level) {
         super();
 
         setTotal(total);
@@ -46,6 +44,7 @@ public class BarShape extends Group {
         this.centerY = centerY;
         this.radius = radius;
         this.strokeWidth = strokeWidth;
+        this.level = level;
 
         initializeParts();
         setupValueChangeListener();
@@ -70,25 +69,31 @@ public class BarShape extends Group {
         valueLabel.setX(centerX - (centerX / 2.0));
         valueLabel.setY((centerY - radius) + 4);
         valueLabel.setVisible(visible);
+
         shape = createShape();
+
     }
 
     private Shape createShape() {
-        Shape shape = Shape.union(line, arc);
-        shape.getStyleClass().addAll("rotarychart-bar", "rotarychart-bar-" + label);
-        shape.setFill(Color.TRANSPARENT);
-        shape.setStroke(color);
-        shape.setStrokeWidth(strokeWidth);
 
-        if (!visible) {
-            shape.hoverProperty().addListener((observable, oldValue, newValue) -> {
-                if (getValue() > 0) {
-                    valueLabel.setVisible(newValue);
-                }
-            });
+        if (level == 0 || getValue() > 0) {
+            Shape shape = Shape.union(line, arc);
+            shape.getStyleClass().addAll("rotarychart-bar", "rotarychart-bar-" + label);
+            shape.setFill(Color.TRANSPARENT);
+            shape.setStroke(color);
+            shape.setStrokeWidth(strokeWidth);
+
+            if (!visible) {
+                shape.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                    if (getValue() > 0) {
+                        valueLabel.setVisible(newValue);
+                    }
+                });
+            }
+            return shape;
+        } else {
+            return Shape.union(new Rectangle(0, 0, 0, 0), new Rectangle(0, 0, 0, 0));
         }
-
-        return shape;
     }
 
     private void setupValueChangeListener() {
@@ -100,7 +105,9 @@ public class BarShape extends Group {
         valueLabel.setText(Double.toString(getValue()));
         arc.setLength(calclength());
         arc.setStartAngle(calcStartAngle());
+
         shape = createShape();
+
         getChildren().clear();
         getChildren().addAll(barLabel, shape, valueLabel);
     }

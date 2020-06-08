@@ -9,6 +9,10 @@ Bitte Anleitung in [docs](./docs/implementation.md) beachten.
 ### Integriert in die OOP2-Projekte von
 
 * *_Ergänzen Sie hier welche OOP2-Teams Ihr Projekt erfolgreich integriert haben._*
+  * Vanoni Rino
+  * Weber Nathanael
+  * Hammer Gabriel
+  * Sascha Urban
 
 ### Abgabe
 
@@ -59,7 +63,7 @@ Es ist Bestandteil der Aufgabe das passende Template auszuwählen (und zu erkenn
 * Danach wird in projekt-spezifischen "Meetings" die Gelegenheit gegeben auf Detailfragen einzugehen.
 * Erarbeiten Sie eine geeignete Präsentationsform, so dass das Interesse möglichst vieler OOP2-Teams an Ihrem Projekt geweckt wird.
 * Organisieren Sie Integrationstermine mit den interessierten OOP2-Studierenden.
-** Die Integration ist eine Gemeinschafts-Aufgabe von CUIE- und OOP2-Team.
+ * Die Integration ist eine Gemeinschafts-Aufgabe von CUIE- und OOP2-Team.
 
 ### Bewertung
 
@@ -67,25 +71,25 @@ Es ist Bestandteil der Aufgabe das passende Template auszuwählen (und zu erkenn
 * Durch eine gute Code-Qualität, d.h. insbesondere eine klare Struktur des Codes entsprechend der im Unterricht erarbeiteten Konzepte, können Sie eine 5.0 erreichen.
 * Die Qualität aus Benutzersicht durch die Anzahl Integrationen in OOP2-Projekte. Jede Integration wird mit +0.25 bewertet, jedoch maximal mit +1.5.
 * *Nicht genügend* ist es
-** wenn Sie an der Postersession nicht oder überwiegend passiv teilnehmen.
-** falls im vorgestellten Projekt keine der im Unterricht erarbeiteten Konzepte erkennbar sind
-** das Projekt nicht compilierfähig ist
-** falls es sich um ein Plagiat handelt
-** falls kein nennenswerter Beitrag bei der Entwicklung geleistet wurde
-** im Zweifelsfall wird ein Code-Walkthrough durchgeführt
-* In Ausnahmefällen kann es dazu kommen, dass Teammitglieder unterschiedliche Noten erhalten.
+  * wenn Sie an der Postersession nicht oder überwiegend passiv teilnehmen.
+  * falls im vorgestellten Projekt keine der im Unterricht erarbeiteten Konzepte erkennbar sind
+  * das Projekt nicht compilierfähig ist
+  * falls es sich um ein Plagiat handelt
+  * falls kein nennenswerter Beitrag bei der Entwicklung geleistet wurde
+  * im Zweifelsfall wird ein Code-Walkthrough durchgeführt
+  * In Ausnahmefällen kann es dazu kommen, dass Teammitglieder unterschiedliche Noten erhalten.
 
 
 ### Bitte beachten Sie
 
 * Falls Sie das Assignment zu zweit bearbeiten:
-** tragen Sie beide Namen unter "Bearbeitet von" ein
-** arbeiten Sie ausschliesslich in einem Repository
-** falls sie beide Zugang zu diesem Repository wollen: tragen Sie die zweite Person als "Collaborator" ein (auf GitHub unter `Settings -> Manage access`)
-** löschen Sie das nicht benötigte Repository (auf GitHub unter `Settings`)
-** arbeiten Sie gemeinsam und gleichzeitig an den Aufgaben (Stichwort: Pair-Programming)
-** https://www.it-agile.de/wissen/agiles-engineering/pair-programming/[Pair-Programming] heisst insbesondere, dass beide Teammitglieder zu gleichen Teilen aktiv in der Entwickler-Rolle sind. Einem Entwickler lediglich bei seiner Arbeit zuzuschauen ist kein Pair-Programming.
-** das Aufteilen und separate Bearbeiten von Teil-Aufgaben ist nicht erwünscht
+  * tragen Sie beide Namen unter "Bearbeitet von" ein
+  * arbeiten Sie ausschliesslich in einem Repository
+  * falls sie beide Zugang zu diesem Repository wollen: tragen Sie die zweite Person als "Collaborator" ein (auf GitHub unter `Settings -> Manage access`)
+  * löschen Sie das nicht benötigte Repository (auf GitHub unter `Settings`)
+  * arbeiten Sie gemeinsam und gleichzeitig an den Aufgaben (Stichwort: Pair-Programming)
+  * https://www.it-agile.de/wissen/agiles-engineering/pair-programming/[Pair-Programming] heisst insbesondere, dass beide Teammitglieder zu gleichen Teilen aktiv in der Entwickler-Rolle sind. Einem Entwickler lediglich bei seiner Arbeit zuzuschauen ist kein Pair-Programming.
+  * das Aufteilen und separate Bearbeiten von Teil-Aufgaben ist nicht erwünscht
 * Ausdrücklich erlaubt und erwünscht ist, dass Sie sich gegebenenfalls Hilfe holen.
 Das Programmierzentrum ist geöffnet und Nachfragen werden zum Beispiel über den im Repository integrierten
 Issue Tracker oder per Mail gerne beantwortet.
