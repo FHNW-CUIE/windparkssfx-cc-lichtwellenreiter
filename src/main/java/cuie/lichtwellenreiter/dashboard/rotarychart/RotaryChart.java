@@ -107,6 +107,10 @@ public class RotaryChart extends Region {
         }
     };
 
+    public RotaryChart() {
+        this(false);
+    }
+
     public RotaryChart(boolean labelsVisible) {
         this.visible = labelsVisible;
         initializeSelf();
