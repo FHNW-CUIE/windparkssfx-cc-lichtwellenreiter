@@ -2,7 +2,7 @@
 
 ## Basic implementation
 1. Add the code from `cuie.lichtwellenreiter.dashboard` to your codebase
-2. Instantiate `RotaryChart rotaryChart = new RotaryChart();`
+2. Instantiate `RotaryChart rotaryChart = new RotaryChart();`. If you wish to show the labels on the bar, set isVisibility to true as a Constructor Argument
 3. Setup bindings (use your PresentationModel instead):
 ```java
 rotaryChart.stationProperty().bind(pm.titleProperty());
