@@ -27,7 +27,8 @@ import javafx.scene.text.TextBoundsType;
 import javafx.util.converter.NumberStringConverter;
 
 /**
- * CustomControl welches eine RotaryChart zur Verfügung stellt für diverse Werte
+ * CustomControl welches eine RotaryChart zur Verfügung stellt für die ProduktionsWert.
+ * Ebenfalls kann damit die linke Seite des Dashboard komplett ersetzt werden.
  *
  * @author Florian Thiévent (lichtwellenreiter)
  */
