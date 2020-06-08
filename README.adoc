@@ -18,7 +18,7 @@
 
 * Tragen Sie ihren Namen unter "Bearbeitet von" ein.
 
-* Benennen Sie das Package `project` um. Verwenden Sie Ihren GitHub-Account- oder Team-Namen. (Via `Refactor -> Rename…`)
+* Benennen Sie das Package `lichtwellenreiter` um. Verwenden Sie Ihren GitHub-Account- oder Team-Namen. (Via `Refactor -> Rename…`)
 
 * Pushen Sie diese Änderungen am besten sofort ins Git-Repository (z.B. via `VCS -> Commit… -> Commit & Push`)
 
