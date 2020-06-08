@@ -6,7 +6,7 @@ public class PresentationModel {
 
 
     private final StringProperty station = new SimpleStringProperty("Haldenstein");
-    private final StringProperty chartLabel = new SimpleStringProperty("Produktion");
+    private final StringProperty chartLabel = new SimpleStringProperty("Produktion (MWh):");
 
     private final StringProperty title = new SimpleStringProperty("Haldenstein");
     private final StringProperty canton = new SimpleStringProperty("GR");
@@ -18,6 +18,28 @@ public class PresentationModel {
     private final DoubleProperty production2016 = new SimpleDoubleProperty(4372.00);
     private final DoubleProperty production2017 = new SimpleDoubleProperty(4137.00);
     private final DoubleProperty production2018 = new SimpleDoubleProperty(4920.00);
+
+    private final DoubleProperty totalProduction = new SimpleDoubleProperty();
+
+
+    public double getTotalProduction() {
+        setTotalProduction(total());
+        return totalProduction.get();
+    }
+
+    public DoubleProperty totalProductionProperty() {
+        setTotalProduction(total());
+        return totalProduction;
+    }
+
+    public void setTotalProduction(double totalProduction) {
+        this.totalProduction.set(totalProduction);
+    }
+
+    public double total() {
+        return getProduction2015() + getProduction2016() + getProduction2017() + getProduction2018();
+    }
+
 
     public String getChartLabel() {
         return chartLabel.get();

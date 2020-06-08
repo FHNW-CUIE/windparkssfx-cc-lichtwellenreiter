@@ -1,34 +1,9 @@
-.rotary-chart {
-    -fx-padding:          5;
-    -fx-background-color: rgb(255, 255, 255);
-    -base-color:          rgb(2, 138, 204);
-}
-
-.rotary-chart .background-circle {
-    -fx-fill: -base-color;
-}
-
-.rotary-chart .display {
-    -fx-font-family: 'Lato Light';
-    -fx-font-size:   24;
-    -fx-fill:        derive(-base-color, 90%);
-}
-
-
 /* New RotaryChart */
-
 .rotary-chart{
     -fx-font-family: 'Lato Light';
-}
-
-.rotarychart-pane{
-    /*-fx-background-color: red;*/
 }
 
 .rotarychart-station-label{
     -fx-font-family: 'Lato Light';
     -fx-font-size:   24;
-}
-.parent-pane{
-    /*-fx-background-color: cornflowerblue;*/
 }

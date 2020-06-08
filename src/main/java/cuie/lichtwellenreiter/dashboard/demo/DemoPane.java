@@ -33,6 +33,8 @@ public class DemoPane extends BorderPane {
     private TextField production2017;
     private TextField production2018;
 
+    private Label totalProduction;
+
     public DemoPane(PresentationModel pm) {
         this.pm = pm;
         initializeControls();
@@ -69,6 +71,8 @@ public class DemoPane extends BorderPane {
         production2016 = new TextField();
         production2017 = new TextField();
         production2018 = new TextField();
+
+        totalProduction = new Label(String.valueOf(pm.total()));
     }
 
     private void layoutControls() {
@@ -101,18 +105,20 @@ public class DemoPane extends BorderPane {
         production2017.textProperty().bindBidirectional(pm.production2017Property(), new NumberStringConverter());
         production2018.textProperty().bindBidirectional(pm.production2018Property(), new NumberStringConverter());
 
-        cc.value2015Property().bind(pm.production2015Property());
-        cc.value2016Property().bind(pm.production2016Property());
-        cc.value2017Property().bind(pm.production2017Property());
-        cc.value2018Property().bind(pm.production2018Property());
+        totalProduction.textProperty().bindBidirectional(pm.totalProductionProperty(), new NumberStringConverter());
 
 
         // Bind all properties from RotaryDash to the PM
         cc.stationProperty().bind(pm.titleProperty());
         cc.cantonProperty().bind(pm.cantonProperty());
-
         cc.productionLabelProperty().bind(pm.installedPowerLabelProperty());
         cc.productionProperty().bind(pm.installedPowerProperty());
+        cc.chartTitleProperty().bind(pm.chartLabelProperty());
+
+        cc.value2015Property().bind(pm.production2015Property());
+        cc.value2016Property().bind(pm.production2016Property());
+        cc.value2017Property().bind(pm.production2017Property());
+        cc.value2018Property().bind(pm.production2018Property());
     }
 
     private void setupEventHandlers() {
@@ -135,14 +141,10 @@ public class DemoPane extends BorderPane {
                     pm.setInstalledPower(6000);
                     pm.setProduction2015(14436);
                     pm.setProduction2016(13366);
-                    pm.setProduction2017(137186);
+                    pm.setProduction2017(13186);
                     pm.setProduction2018(12480);
                     break;
             }
-
-
         });
-
     }
-
 }

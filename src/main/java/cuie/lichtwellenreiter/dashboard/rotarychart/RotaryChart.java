@@ -3,8 +3,6 @@ package cuie.lichtwellenreiter.dashboard.rotarychart;
 import java.util.List;
 import java.util.Locale;
 
-import javafx.animation.AnimationTimer;
-import javafx.animation.Timeline;
 import javafx.beans.property.*;
 import javafx.css.CssMetaData;
 import javafx.css.SimpleStyleableObjectProperty;
@@ -22,12 +20,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextBoundsType;
-import javafx.util.Duration;
+import javafx.util.converter.NumberStringConverter;
 
 /**
  * CustomControl welches eine RotaryChart zur Verfügung stellt für diverse Werte
@@ -62,6 +59,7 @@ public class RotaryChart extends Region {
     private ImageView cantonImage;
     private Label powerLabel;
     private Label powerValueLabel;
+    private Label totalLabel;
 
     private Pane chartPane;
     private Label chartLabel;
@@ -74,17 +72,18 @@ public class RotaryChart extends Region {
     // Properties
     private final StringProperty station = new SimpleStringProperty();
     private final StringProperty canton = new SimpleStringProperty();
-    private final ObjectProperty cImage = new SimpleObjectProperty();
     private final StringProperty productionLabel = new SimpleStringProperty("Performance (kW)");
     private final DoubleProperty production = new SimpleDoubleProperty();
 
-    private final StringProperty chartTitle = new SimpleStringProperty();
+    private final StringProperty chartTitle = new SimpleStringProperty("Production");
     private final DoubleProperty value2015 = new SimpleDoubleProperty(1);
     private final DoubleProperty value2016 = new SimpleDoubleProperty(1);
     private final DoubleProperty value2017 = new SimpleDoubleProperty(1);
     private final DoubleProperty value2018 = new SimpleDoubleProperty(1);
 
     private final DoubleProperty totalProduction = new SimpleDoubleProperty();
+
+    private double total;
 
 
     // Colors
@@ -107,37 +106,13 @@ public class RotaryChart extends Region {
         }
     };
 
-    // ToDo: Loeschen falls keine getaktete Animation benoetigt wird
-    private final BooleanProperty blinking = new SimpleBooleanProperty(false);
-    private final ObjectProperty<Duration> pulse = new SimpleObjectProperty<>(Duration.seconds(1.0));
-
-    private final AnimationTimer timer = new AnimationTimer() {
-        private long lastTimerCall;
-
-        @Override
-        public void handle(long now) {
-            if (now > lastTimerCall + (getPulse().toMillis() * 1_000_000L)) {
-                performPeriodicTask();
-                lastTimerCall = now;
-            }
-        }
-    };
-
-    // ToDo: alle Animationen und Timelines deklarieren
-    private final Timeline timeline = new Timeline();
-
     public RotaryChart() {
         initializeSelf();
         initializeParts();
-        initializeDrawingPane();
-        initializeAnimations();
-
-        setupEventHandlers();
+        initializeParentPane();
         setupValueChangeListeners();
         setupBindings();
-
         setupBindings();
-        initializeBars();
         layoutParts();
     }
 
@@ -181,33 +156,27 @@ public class RotaryChart extends Region {
         powerValueLabel.setLayoutX(100);
         powerValueLabel.setLayoutY(35);
 
-        chartLabel = new Label();
+        chartLabel = new Label("Production");
         chartLabel.getStyleClass().add("rotarychart-chart-label");
-        chartLabel.setLayoutX(10);
-        chartLabel.setLayoutY(100);
+        chartLabel.setLayoutX(11);
+        chartLabel.setLayoutY(5);
 
-        outerLine = new BarShape(null, 0, RC_BLACK, 150, 100, 75, 1, -1);
-        bar2015 = new BarShape("2015", 0, RC_BLUE, 150, 100, 65, 10, 0);
-        bar2016 = new BarShape("2016", 0, RC_GREEN, 150, 100, 50, 10, 1);
-        bar2017 = new BarShape("2017", 0, RC_ORANGE, 150, 100, 35, 10, 2);
-        bar2018 = new BarShape("2018", 0, RC_YELLOW, 150, 100, 20, 10, 3);
+        totalLabel = new Label("42");
+        totalLabel.getStyleClass().add("rotarychart-total-label");
+        totalLabel.setLayoutX(120);
+        totalLabel.setLayoutY(5);
 
-
-    }
-
-    private void initializeBars() {
-
-        bar2015.setValue(getValue2015());
-        bar2016.setValue(getValue2016());
-        bar2017.setValue(getValue2017());
-        bar2018.setValue(getValue2018());
-
+        outerLine = new BarShape(null, 0, total, RC_BLACK, 150, 100, 75, 1);
+        bar2015 = new BarShape("2015", value2015Property().doubleValue(), total, RC_BLUE, 150, 100, 65, 10);
+        bar2016 = new BarShape("2016", value2016Property().doubleValue(), total, RC_GREEN, 150, 100, 50, 10);
+        bar2017 = new BarShape("2017", value2017Property().doubleValue(), total, RC_ORANGE, 150, 100, 35, 10);
+        bar2018 = new BarShape("2018", value2018Property().doubleValue(), total, RC_YELLOW, 150, 100, 20, 10);
 
     }
 
-    private void initializeDrawingPane() {
+    private void initializeParentPane() {
         chartPane = new Pane();
-        chartPane.getStyleClass().add("parent-pane");
+        chartPane.getStyleClass().add("rotarychart-bar-pane");
         chartPane.setLayoutX(0);
         chartPane.setLayoutY(ARTBOARD_HEIGHT - 200);
         chartPane.setMaxSize(ARTBOARD_WIDTH, 200);
@@ -215,50 +184,16 @@ public class RotaryChart extends Region {
         chartPane.setPrefSize(ARTBOARD_WIDTH, 200);
     }
 
-    private Image getCantonImage(String canton) {
 
-        switch (canton.toUpperCase()) {
-            case "AG":
-            case "AI":
-            case "AR":
-            case "BE":
-            case "BL":
-            case "BS":
-            case "FR":
-            case "GE":
-            case "GL":
-            case "GR":
-            case "JU":
-            case "LU":
-            case "NE":
-            case "NW":
-            case "OW":
-            case "SG":
-            case "SH":
-            case "SO":
-            case "SZ":
-            case "TG":
-            case "TI":
-            case "UR":
-            case "VD":
-            case "VS":
-            case "ZG":
-            case "ZH":
-                return new Image(String.valueOf(getClass().getResource("coats_of_switzerland/" + canton.toUpperCase() + ".png")));
-            default:
-                return new Image(String.valueOf(getClass().getResource("coats_of_switzerland/UNKNOWN.png")));
-
-        }
-    }
-
-    private void initializeAnimations() {
-        //ToDo: alle deklarierten Animationen initialisieren
+    private void calcTotalProduction() {
+        total = 0;
+        total = getValue2015() + getValue2016() + getValue2017() + getValue2018();
+        totalProduction.setValue(total);
     }
 
     private void layoutParts() {
-        chartPane.getChildren().addAll(chartLabel, outerLine);
+        chartPane.getChildren().addAll(chartLabel, outerLine, totalLabel);
 
-        // Todo Add all LineArcs, if not null
         if (getValue2015() > 0) chartPane.getChildren().add(bar2015);
         if (getValue2016() > 0) chartPane.getChildren().add(bar2016);
         if (getValue2017() > 0) chartPane.getChildren().add(bar2017);
@@ -268,47 +203,53 @@ public class RotaryChart extends Region {
         getChildren().add(parentPane);
     }
 
-    private void setupEventHandlers() {
-        //ToDo: bei Bedarf ergänzen
-    }
-
     private void setupValueChangeListeners() {
         canton.addListener((observable, oldValue, newValue) -> cantonImage.setImage(getCantonImage(newValue)));
 
         value2015.addListener((observable, oldValue, newValue) -> {
-            System.out.println("2015 changed to " + newValue);
-            bar2015.setValue(newValue.intValue());
+            updateTotal();
+            bar2015.setValue(newValue.doubleValue());
+        });
+
+        value2016.addListener((observable, oldValue, newValue) -> {
+            updateTotal();
+            bar2016.setValue(newValue.doubleValue());
+        });
+
+        value2017.addListener((observable, oldValue, newValue) -> {
+            updateTotal();
+            bar2017.setValue(newValue.doubleValue());
+        });
+
+        value2018.addListener((observable, oldValue, newValue) -> {
+            updateTotal();
+            bar2018.setValue(newValue.doubleValue());
         });
 
     }
 
+    private void updateTotal(){
+        calcTotalProduction();
+        bar2015.setTotal(total);
+        bar2016.setTotal(total);
+        bar2017.setTotal(total);
+        bar2018.setTotal(total);
+    }
+
     private void setupBindings() {
         stationLabel.textProperty().bind(stationProperty());
-        chartLabel.textProperty().bindBidirectional(chartTitleProperty());
+        chartLabel.textProperty().bind(chartTitleProperty());
         powerLabel.textProperty().bind(productionLabelProperty());
         powerValueLabel.textProperty().bind(productionProperty().asString());
+        totalLabel.textProperty().bindBidirectional(totalProductionProperty(), new NumberStringConverter());
 
-        //bar2015.valueProperty().bindBidirectional(value2015Property());
+        value2015Property().bind(bar2015.valueProperty());
+        value2016Property().bind(bar2016.valueProperty());
+        value2017Property().bind(bar2017.valueProperty());
+        value2018Property().bind(bar2018.valueProperty());
 
-        value2015.bindBidirectional(bar2015.valueProperty());
     }
 
-    private void updateUI() {
-        //ToDo : ergaenzen mit dem was bei einer Wertaenderung einer Status-Property im UI upgedated werden muss
-    }
-
-    private void performPeriodicTask() {
-        //ToDo: ergaenzen mit dem was bei der getakteten Animation gemacht werden muss
-        //normalerweise: den Wert einer der Status-Properties aendern
-    }
-
-    private void startClockedAnimation(boolean start) {
-        if (start) {
-            timer.start();
-        } else {
-            timer.stop();
-        }
-    }
 
     @Override
     protected void layoutChildren() {
@@ -576,6 +517,42 @@ public class RotaryChart extends Region {
         return ARTBOARD_HEIGHT + verticalPadding;
     }
 
+    private Image getCantonImage(String canton) {
+
+        switch (canton.toUpperCase()) {
+            case "AG":
+            case "AI":
+            case "AR":
+            case "BE":
+            case "BL":
+            case "BS":
+            case "FR":
+            case "GE":
+            case "GL":
+            case "GR":
+            case "JU":
+            case "LU":
+            case "NE":
+            case "NW":
+            case "OW":
+            case "SG":
+            case "SH":
+            case "SO":
+            case "SZ":
+            case "TG":
+            case "TI":
+            case "UR":
+            case "VD":
+            case "VS":
+            case "ZG":
+            case "ZH":
+                return new Image(String.valueOf(getClass().getResource("coats_of_switzerland/" + canton.toUpperCase() + ".png")));
+            default:
+                return new Image(String.valueOf(getClass().getResource("coats_of_switzerland/UNKNOWN.png")));
+
+        }
+    }
+
     // alle getter und setter  (generiert via "Code -> Generate... -> Getter and Setter)
     public Color getBaseColor() {
         return baseColor.get();
@@ -589,29 +566,6 @@ public class RotaryChart extends Region {
         this.baseColor.set(baseColor);
     }
 
-    public boolean isBlinking() {
-        return blinking.get();
-    }
-
-    public BooleanProperty blinkingProperty() {
-        return blinking;
-    }
-
-    public void setBlinking(boolean blinking) {
-        this.blinking.set(blinking);
-    }
-
-    public Duration getPulse() {
-        return pulse.get();
-    }
-
-    public ObjectProperty<Duration> pulseProperty() {
-        return pulse;
-    }
-
-    public void setPulse(Duration pulse) {
-        this.pulse.set(pulse);
-    }
 
     public String getStation() {
         return station.get();
@@ -719,5 +673,17 @@ public class RotaryChart extends Region {
 
     public void setChartTitle(String chartTitle) {
         this.chartTitle.set(chartTitle);
+    }
+
+    public double getTotalProduction() {
+        return totalProduction.get();
+    }
+
+    public DoubleProperty totalProductionProperty() {
+        return totalProduction;
+    }
+
+    public void setTotalProduction(double totalProduction) {
+        this.totalProduction.set(totalProduction);
     }
 }

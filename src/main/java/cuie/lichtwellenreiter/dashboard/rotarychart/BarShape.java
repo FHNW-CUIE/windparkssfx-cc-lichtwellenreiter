@@ -25,28 +25,20 @@ public class BarShape extends Group {
     private String label;
 
     private final DoubleProperty value = new SimpleDoubleProperty();
+    private final DoubleProperty total = new SimpleDoubleProperty();
 
     private Color color;
 
     // Constants
-    private final int BAR_START_X = 0;
-    private final int BAR_Y = 15;
-    private final int BAR_END_X = 50;
-    private final int SPACING = 15;
+    private final int centerX;
+    private final int centerY;
+    private final int radius;
+    private final int strokeWidth;
 
-    private int centerX = 105;
-    private int centerY = 105;
-    private int radius = 90;
-    private int strokeWidth = 10;
-    private int position;
-
-    public BarShape(){
-
-    }
-
-    public BarShape(String label, double value, Color color, int centerX, int centerY, int radius, int strokeWidth, int position) {
+    public BarShape(String label, double value, double total, Color color, int centerX, int centerY, int radius, int strokeWidth) {
         super();
 
+        setTotal(total);
         setValue(value);
         this.label = label;
         this.color = color;
@@ -55,10 +47,8 @@ public class BarShape extends Group {
         this.centerY = centerY;
         this.radius = radius;
         this.strokeWidth = strokeWidth;
-        this.position = position;
 
         initializeParts();
-        setupBindings();
         setupEventHandler();
         setupValueChangeListener();
         getChildren().addAll(barLabel, shape, valueLabel);
@@ -66,35 +56,32 @@ public class BarShape extends Group {
 
     private void initializeParts() {
         barLabel = new Label(label);
-        barLabel.getStyleClass().addAll("bar-label", "label-" + label);
-        barLabel.setLayoutX(centerX-(centerX/2.0)-40);
-        barLabel.setLayoutY((centerY-radius)-8);
+        barLabel.getStyleClass().addAll("rotarychart-bar-label", "rotarychart-bar-label-" + label);
+        barLabel.setLayoutX(centerX - (centerX / 2.0) - 40);
+        barLabel.setLayoutY((centerY - radius) - 8);
 
-
-        line = new Line(centerX-(centerX/2), centerY-radius, centerX, centerY-radius);
+        line = new Line(centerX - (centerX / 2), centerY - radius, centerX, centerY - radius);
 
         arc = new Arc(centerX, centerY, radius, radius, calcStartAngle(), calclength());
         arc.setType(ArcType.OPEN);
         arc.setStroke(Color.BLACK);
         arc.setFill(null);
 
-        shape = Shape.union(line, arc);
-        shape.getStyleClass().addAll("bar", "bar-" + label);
+        valueLabel = new Text(String.valueOf(getValue()));
+        valueLabel.getStyleClass().addAll("rotarychart-bar-text", "text-" + label);
+        valueLabel.setX(centerX - (centerX / 2.0));
+        valueLabel.setY((centerY - radius) + 5);
+        valueLabel.setVisible(false);
+        shape = createShape();
+    }
+
+    private Shape createShape() {
+        Shape shape = Shape.union(line, arc);
+        shape.getStyleClass().addAll("rotarychart-bar", "rotarychart-bar-" + label);
         shape.setFill(Color.TRANSPARENT);
         shape.setStroke(color);
         shape.setStrokeWidth(strokeWidth);
-
-        valueLabel = new Text(String.valueOf(getValue()));
-
-        valueLabel.getStyleClass().addAll("bar-text", "text-" + label);
-        valueLabel.setX(centerX-(centerX/2.0));
-        valueLabel.setY((centerY-radius) + 5);
-        valueLabel.setVisible(false);
-    }
-
-
-    private void setupBindings(){
-       //Todo
+        return shape;
     }
 
     private void setupEventHandler() {
@@ -106,30 +93,25 @@ public class BarShape extends Group {
 
     }
 
-    private void setupValueChangeListener(){
-
-        valueProperty().addListener((observable, oldValue, newValue) -> {
-
-            System.out.println("New Value " + newValue);
-
-            arc.setLength(calclength());
-            arc.setStartAngle(calcStartAngle());
-
-
-
-            System.out.println("length " + arc.getLength());
-            System.out.println("startangle " + arc.getStartAngle());
-        });
+    private void setupValueChangeListener() {
+        value.addListener((observable, oldValue, newValue) -> updateShape());
+        total.addListener((observable, oldValue, newValue) -> updateShape());
     }
 
-    private double calcYPosition() {
-        return BAR_Y + (SPACING * position);
+    private void updateShape() {
+        arc.setLength(calclength());
+        arc.setStartAngle(calcStartAngle());
+
+        shape = createShape();
+
+        getChildren().clear();
+        getChildren().addAll(barLabel, valueLabel, shape);
     }
 
     private double calclength() {
         double length = 270;
         if (getValue() > 0) {
-            length = (((100.0 / 17707.0) * getValue()) / 100.0) * 270.0;
+            length = (((100.0 / getTotal()) * getValue()) / 100.0) * 270.0;
         }
         return length;
     }
@@ -148,5 +130,17 @@ public class BarShape extends Group {
 
     public void setValue(double value) {
         this.value.set(value);
+    }
+
+    public double getTotal() {
+        return total.get();
+    }
+
+    public DoubleProperty totalProperty() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total.set(total);
     }
 }
