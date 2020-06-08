@@ -17,3 +17,4 @@ rotaryChart.value2018Property().bind(pm.production2018Property());
 ```
 
 ## CSS Selectors
+![css-selectors](./css-selectors.png)
