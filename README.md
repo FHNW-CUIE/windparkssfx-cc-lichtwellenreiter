@@ -1,22 +1,22 @@
-== CUIE Abschlussprojekt
+## CUIE Abschlussprojekt
 
-Bitte Anleitung in [docs](./docs) beachten.
+Bitte Anleitung in [docs](./docs/implementation.md) beachten.
 
-=== Bearbeitet von
+### Bearbeitet von
 
 * _Florian Thiévent (lichtwellenreiter)_
 
-=== Integriert in die OOP2-Projekte von
+### Integriert in die OOP2-Projekte von
 
 * *_Ergänzen Sie hier welche OOP2-Teams Ihr Projekt erfolgreich integriert haben._*
 
-=== Abgabe
+### Abgabe
 
 * *Mittwoch, 10.6.2020*, 20:42 Uhr
 
 * Die Abgabe erfolgt durch ein "Push" auf den Master-Branch Ihres GitHub-Repositories.
 
-=== Initiale Schritte
+### Initiale Schritte
 
 * Tragen Sie ihren Namen unter "Bearbeitet von" ein.
 
@@ -25,12 +25,12 @@ Bitte Anleitung in [docs](./docs) beachten.
 * Pushen Sie diese Änderungen am besten sofort ins Git-Repository (z.B. via `VCS -> Commit… -> Commit & Push`)
 
 
-=== Abschliessende Schritte
+### Abschliessende Schritte
 
 * Tragen Sie die Namen der OOP2-Studierenden, die ihr Projekt erfolgreich integriert haben, unter "Integriert in die OOP2-Projekte von" ein
 
 
-=== Aufgabe: Dashboard oder Business Control für WindparksFX
+### Aufgabe: Dashboard oder Business Control für WindparksFX
 
 Entwerfen und implementieren Sie entweder ein Dashboard oder ein Business Control für das OOP2-Projekt 'WindparksFX' auf Basis JavaFX.
 
@@ -51,7 +51,7 @@ Für das _'Business Control'_ verwenden Sie bei der Implementierung die Struktur
 
 Es ist Bestandteil der Aufgabe das passende Template auszuwählen (und zu erkennen, falls ein Template nicht geeignet ist).
 
-=== Präsentation
+### Präsentation
 
 * *Montag, 8.6.2020*, 19:45 Uhr, via MS Teams
 * Die Projekte werden der OOP2-Klasse im Rahmen einer virtuellen *Poster-Session* präsentiert.
@@ -61,7 +61,7 @@ Es ist Bestandteil der Aufgabe das passende Template auszuwählen (und zu erkenn
 * Organisieren Sie Integrationstermine mit den interessierten OOP2-Studierenden.
 ** Die Integration ist eine Gemeinschafts-Aufgabe von CUIE- und OOP2-Team.
 
-=== Bewertung
+### Bewertung
 
 * Mit einer guten Präsentation Ihres implementierten und lauffähigen Projekts an der Postersession haben Sie normalerweise mindestens eine 4.0 erreicht.
 * Durch eine gute Code-Qualität, d.h. insbesondere eine klare Struktur des Codes entsprechend der im Unterricht erarbeiteten Konzepte, können Sie eine 5.0 erreichen.
@@ -76,7 +76,7 @@ Es ist Bestandteil der Aufgabe das passende Template auszuwählen (und zu erkenn
 * In Ausnahmefällen kann es dazu kommen, dass Teammitglieder unterschiedliche Noten erhalten.
 
 
-=== Bitte beachten Sie
+### Bitte beachten Sie
 
 * Falls Sie das Assignment zu zweit bearbeiten:
 ** tragen Sie beide Namen unter "Bearbeitet von" ein
@@ -92,7 +92,7 @@ Issue Tracker oder per Mail gerne beantwortet.
 * Ab Montag, 8.6.2020, 22:00 Uhr, können leider (aus privaten, gesundheitlichen Gründen) keine Fragen mehr beantwortet werden.
 
 
-=== Bei Problemen mit dem IntelliJ-Setup
+### Bei Problemen mit dem IntelliJ-Setup
 
 Es kommt immer wieder mal vor, dass der Setup des IntelliJ-Projekts nicht auf Anhieb funktioniert oder "plötzlich" nicht mehr funktioniert.
 
