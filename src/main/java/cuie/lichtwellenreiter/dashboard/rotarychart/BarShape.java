@@ -1,9 +1,6 @@
 package cuie.lichtwellenreiter.dashboard.rotarychart;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -35,14 +32,16 @@ public class BarShape extends Group {
     private final int radius;
     private final int strokeWidth;
 
-    public BarShape(String label, double value, double total, Color color, int centerX, int centerY, int radius, int strokeWidth) {
+    private boolean visible;
+
+    public BarShape(String label, double value, double total, Color color, int centerX, int centerY, int radius, int strokeWidth, boolean visible) {
         super();
 
         setTotal(total);
         setValue(value);
         this.label = label;
         this.color = color;
-
+        this.visible = visible;
         this.centerX = centerX;
         this.centerY = centerY;
         this.radius = radius;
@@ -70,7 +69,7 @@ public class BarShape extends Group {
         valueLabel.getStyleClass().addAll("rotarychart-bar-text", "text-" + label);
         valueLabel.setX(centerX - (centerX / 2.0));
         valueLabel.setY((centerY - radius) + 4);
-        valueLabel.setVisible(false);
+        valueLabel.setVisible(visible);
         shape = createShape();
     }
 
@@ -80,11 +79,15 @@ public class BarShape extends Group {
         shape.setFill(Color.TRANSPARENT);
         shape.setStroke(color);
         shape.setStrokeWidth(strokeWidth);
-        shape.hoverProperty().addListener((observable, oldValue, newValue) -> {
-            if (getValue() > 0) {
-                valueLabel.setVisible(newValue);
-            }
-        });
+
+        if (!visible) {
+            shape.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                if (getValue() > 0) {
+                    valueLabel.setVisible(newValue);
+                }
+            });
+        }
+
         return shape;
     }
 

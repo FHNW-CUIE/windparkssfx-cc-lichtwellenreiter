@@ -84,6 +84,7 @@ public class RotaryChart extends Region {
     private final DoubleProperty totalProduction = new SimpleDoubleProperty();
 
     private double total;
+    private boolean visible;
 
 
     // Colors
@@ -106,7 +107,8 @@ public class RotaryChart extends Region {
         }
     };
 
-    public RotaryChart() {
+    public RotaryChart(boolean labelsVisible) {
+        this.visible = labelsVisible;
         initializeSelf();
         initializeParts();
         initializeParentPane();
@@ -166,11 +168,11 @@ public class RotaryChart extends Region {
         totalLabel.setLayoutX(120);
         totalLabel.setLayoutY(5);
 
-        outerLine = new BarShape(null, 0, total, RC_BLACK, 150, 100, 75, 1);
-        bar2015 = new BarShape("2015", value2015Property().doubleValue(), total, RC_BLUE, 150, 100, 65, 10);
-        bar2016 = new BarShape("2016", value2016Property().doubleValue(), total, RC_GREEN, 150, 100, 50, 10);
-        bar2017 = new BarShape("2017", value2017Property().doubleValue(), total, RC_ORANGE, 150, 100, 35, 10);
-        bar2018 = new BarShape("2018", value2018Property().doubleValue(), total, RC_YELLOW, 150, 100, 20, 10);
+        outerLine = new BarShape(null, 0, total, RC_BLACK, 150, 100, 75, 1, visible);
+        bar2015 = new BarShape("2015", value2015Property().doubleValue(), total, RC_BLUE, 150, 100, 65, 10, visible);
+        bar2016 = new BarShape("2016", value2016Property().doubleValue(), total, RC_GREEN, 150, 100, 50, 10, visible);
+        bar2017 = new BarShape("2017", value2017Property().doubleValue(), total, RC_ORANGE, 150, 100, 35, 10, visible);
+        bar2018 = new BarShape("2018", value2018Property().doubleValue(), total, RC_YELLOW, 150, 100, 20, 10, visible);
 
     }
 
@@ -228,7 +230,7 @@ public class RotaryChart extends Region {
 
     }
 
-    private void updateTotal(){
+    private void updateTotal() {
         calcTotalProduction();
         bar2015.setTotal(total);
         bar2016.setTotal(total);

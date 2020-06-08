@@ -35,6 +35,8 @@ public class DemoPane extends BorderPane {
 
     private Label totalProduction;
 
+    private CheckBox visible;
+
     public DemoPane(PresentationModel pm) {
         this.pm = pm;
         initializeControls();
@@ -44,8 +46,9 @@ public class DemoPane extends BorderPane {
     }
 
     private void initializeControls() {
+        visible = new CheckBox();
         setPadding(new Insets(10));
-        cc = new RotaryChart();
+        cc = new RotaryChart(true);
 
         chart = new TextField();
 
@@ -82,6 +85,7 @@ public class DemoPane extends BorderPane {
                 new Label("Title"), title,
                 new Label("Canton"), canton,
                 new Label("Performance"), performance,
+                new Label("Labels visible"), visible,
                 new Label("Production 2015 (MWh)"), production2015,
                 new Label("Production 2016 (MWh)"), production2016,
                 new Label("Production 2017 (MWh)"), production2017,
@@ -106,6 +110,8 @@ public class DemoPane extends BorderPane {
         production2018.textProperty().bindBidirectional(pm.production2018Property(), new NumberStringConverter());
 
         totalProduction.textProperty().bindBidirectional(pm.totalProductionProperty(), new NumberStringConverter());
+
+        visible.selectedProperty().bindBidirectional(pm.visibleProperty());
 
 
         // Bind all properties from RotaryDash to the PM

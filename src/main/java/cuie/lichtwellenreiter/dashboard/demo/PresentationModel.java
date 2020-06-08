@@ -21,6 +21,8 @@ public class PresentationModel {
 
     private final DoubleProperty totalProduction = new SimpleDoubleProperty();
 
+    private final BooleanProperty visible = new SimpleBooleanProperty(false);
+
 
     public double getTotalProduction() {
         setTotalProduction(total());
@@ -159,5 +161,17 @@ public class PresentationModel {
 
     public void setProduction2018(double production2018) {
         this.production2018.set(production2018);
+    }
+
+    public boolean isVisible() {
+        return visible.get();
+    }
+
+    public BooleanProperty visibleProperty() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible.set(visible);
     }
 }
