@@ -32,7 +32,6 @@ import javafx.util.converter.NumberStringConverter;
  *
  * @author Florian Thiévent (lichtwellenreiter)
  */
-//ToDo: Umbenennen.
 public class RotaryChart extends Region {
     // wird gebraucht fuer StyleableProperties
     private static final StyleablePropertyFactory<RotaryChart> FACTORY = new StyleablePropertyFactory<>(Region.getClassCssMetaData());
