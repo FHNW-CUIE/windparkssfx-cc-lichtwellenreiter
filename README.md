@@ -1,5 +1,7 @@
 == CUIE Abschlussprojekt
 
+Bitte Anleitung in [docs](./docs) beachten.
+
 === Bearbeitet von
 
 * _Florian Thiévent (lichtwellenreiter)_
