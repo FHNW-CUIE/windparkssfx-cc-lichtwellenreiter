@@ -17,4 +17,5 @@ rotaryChart.value2018Property().bind(pm.production2018Property());
 ```
 
 ## CSS Selectors
+The label showed on hover has the css class: .rotarychart-bar-text<-year>
 ![css-selectors](./css-selectors.png)

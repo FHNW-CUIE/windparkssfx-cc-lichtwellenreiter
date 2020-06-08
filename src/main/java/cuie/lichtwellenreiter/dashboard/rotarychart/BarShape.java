@@ -49,7 +49,6 @@ public class BarShape extends Group {
         this.strokeWidth = strokeWidth;
 
         initializeParts();
-        setupEventHandler();
         setupValueChangeListener();
         getChildren().addAll(barLabel, shape, valueLabel);
     }
@@ -67,10 +66,10 @@ public class BarShape extends Group {
         arc.setStroke(Color.BLACK);
         arc.setFill(null);
 
-        valueLabel = new Text(String.valueOf(getValue()));
+        valueLabel = new Text();
         valueLabel.getStyleClass().addAll("rotarychart-bar-text", "text-" + label);
         valueLabel.setX(centerX - (centerX / 2.0));
-        valueLabel.setY((centerY - radius) + 5);
+        valueLabel.setY((centerY - radius) + 4);
         valueLabel.setVisible(false);
         shape = createShape();
     }
@@ -81,16 +80,12 @@ public class BarShape extends Group {
         shape.setFill(Color.TRANSPARENT);
         shape.setStroke(color);
         shape.setStrokeWidth(strokeWidth);
-        return shape;
-    }
-
-    private void setupEventHandler() {
         shape.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (getValue() > 0) {
                 valueLabel.setVisible(newValue);
             }
         });
-
+        return shape;
     }
 
     private void setupValueChangeListener() {
@@ -99,13 +94,12 @@ public class BarShape extends Group {
     }
 
     private void updateShape() {
+        valueLabel.setText(Double.toString(getValue()));
         arc.setLength(calclength());
         arc.setStartAngle(calcStartAngle());
-
         shape = createShape();
-
         getChildren().clear();
-        getChildren().addAll(barLabel, valueLabel, shape);
+        getChildren().addAll(barLabel, shape, valueLabel);
     }
 
     private double calclength() {
