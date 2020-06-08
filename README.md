@@ -1,7 +1,7 @@
 ## CUIE Abschlussprojekt
 
 Bitte Anleitung in [docs](./docs/implementation.md) beachten.
-
+![rotary-chart](rotary-chart.png)
 ### Bearbeitet von
 
 * _Florian Thiévent (lichtwellenreiter)_
